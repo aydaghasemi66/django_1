@@ -3,6 +3,7 @@
 {% block 'title' %}course{% endblock 'title' %}
 {% block 'content' %}
 
+
   <main id="main" data-aos="fade-in">
 
     <!-- ======= Breadcrumbs ======= -->
@@ -55,26 +56,30 @@
             </div>
           </div> <!-- End Course Item-->
           {% endfor %}
-        </div>
-        
-        <div align="center" style="font-size:35px;">
-          {% if courses.has_previous %}
-            <a href="{% url 'courses:courses' %}?page=1"><<</a>
-            <a href="{% url 'courses:courses' %}?page={{ courses.previous_page_number }}"><</a>
-          {% endif %}
-          
-          <span class="current-page">{{ courses.number }}</span>
-          
-          {% if courses.has_next %}
-            <a href="{% url 'courses:courses' %}?page={{ courses.next_page_number }}">> {{ courses.previos_page_number }} </a>
-            <a href="{% url 'courses:courses' %}?page={{ courses.paginator.num_pages }}">>></a>
-          {% endif %}
+       
+
         </div>
 
       </div>
     </section><!-- End Courses Section -->
+    <div align="center" style="font-size:35px;">
+      {% if courses.has_next and courses.has_previous %}
+      <a href="?page={{first_page}}"><<</a>
+      <a href="?page={{courses.previous_page_number}}">{{courses.previous_page_number}}</a>
+      <a href="?page={{courses.previous_page_number}}"><  </a>
+      <a href="?page={{ courses.number }}">{{ courses.number }}</a>
+      <a href="?page={{courses.next_page_number}}">></a>
+      <a href="?page={{courses.next_page_number}}">{{courses.next_page_number}}</a>
+      <a href="?page={{last_page}}">>></a>
+      {% elif courses.has_next %}
+      <a href="?page={{courses.next_page_number}}">></a>
+      <a href="?page={{courses.next_page_number}}">{{courses.next_page_number}}</a>
+      <a href="?page={{last_page}}">>></a>
+      {% elif courses.has_previous%}
+      <a href="?page={{first_page}}"><<</a>
+      <a href="?page={{courses.previous_page_number}}">{{courses.previous_page_number}}</a>
+      <a href="?page={{courses.previous_page_number}}"><  </a>
+    </div>
+      {% endif %}
   </main><!-- End #main -->
-{% endblock 'content' %}
-
-
-
+  {% endblock 'content' %}
