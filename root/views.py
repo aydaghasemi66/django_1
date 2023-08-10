@@ -13,8 +13,23 @@ def home(request):
 
 
 
-def about(request):
-    return render(request,"root/about.html")
+def about (request):
+    context = {
+      
+    }
+    return render(request,"root/about.html", context=context)
+
 
 def contact(request):
-    return render(request,"root/contact.html")
+    context = {
+     
+    }
+    return render(request,"root/contact.html", context=context)
+
+
+
+def trainer(request):
+    context = {
+    
+    }
+    return render(request,"root/trainers.html", context=context)
