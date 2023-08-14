@@ -133,14 +133,14 @@
                   {% endfor %}
                   <p class="price">${{cr.price}}</p>
                 </div>
-                {% for sk in cr.teacher.skills.all  %}
-                <h3><a href="course-details.html">{{sk.name}}</a></h3>
-                {% endfor %}
-                <p>{{cr.teacher.description}}</p>
+                
+                <h3><a href="{% url 'courses:course_detail' id=cr.id %}">{{cr.title}}</a></h3>
+                
+                <p>{{cr.content}}</p>
                 <div class="trainer d-flex justify-content-between align-items-center">
                   <div class="trainer-profile d-flex align-items-center">
                     <img src={{cr.teacher.image.url}} class="img-fluid" alt="">
-                    <span>{{cr.teacher.info.username}}</span>
+                    <h5><a href="# ">&nbsp;&nbsp;{{cr.teacher.info.username}}</a></h5>
                   </div>
                   <div class="trainer-rank d-flex align-items-center">
                     <i class="bx bx-user"></i>&nbsp;{{cr.counted_views}}
