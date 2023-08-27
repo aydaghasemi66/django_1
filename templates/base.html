@@ -43,7 +43,7 @@
     <header id="header" class="fixed-top">
       <div class="container d-flex align-items-center">
   
-        <h1 class="logo me-auto"><a href="{% url 'root:home' %}">Mentor</a></h1>
+        <h1 class="logo me-auto" style='color:blue;font-family:B Titr;font-size:25;'><a href="{% url 'root:home' %}">آکادمی </a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="{% url 'root:home' %}" class="logo me-auto"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
   
@@ -59,7 +59,7 @@
                 {% for cat in category %}
                 <li><a href={% url 'courses:course_cat' cat=cat.name %}>{{cat.name}}</a></li>
                 {% endfor %}
-               
+
               </ul>
             </li>
             <li><a href="#">Login</a></li>
@@ -130,8 +130,16 @@
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+
+            {% if messages %}
+              {% for message in messages %}
+                <p style='color:green'>{{ message}}</p>
+              {% endfor %}
+            {% endif %}
+            <form  method="post">
+              {% csrf_token %}
+              <input type="email" name="email">
+              <input type="submit" value="Subscribe">
             </form>
           </div>
 
