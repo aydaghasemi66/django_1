@@ -46,7 +46,12 @@
         <h1 class="logo me-auto" style='color:blue;font-family:B Titr;font-size:25;'><a href="{% url 'root:home' %}">آکادمی </a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="{% url 'root:home' %}" class="logo me-auto"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
-  
+        {% if user.is_authenticated%}
+        <p>Welcome, {{user.username}}</p>
+        <a href="http://127.0.0.1:8000/accounts/logout/">Logout</a>
+        {%else%}
+        <p>Please <a href="http://127.0.0.1:8000/accounts/login/">Login</a></p>
+        {%endif%}
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
             <li><a class="active" href="{% url 'root:home' %}">Home</a></li>
@@ -62,9 +67,10 @@
 
               </ul>
             </li>
-            <li><a href="{% url 'account:login' %}">Login</a></li>
-            <li><a href="{% url 'account:signup' %}">Signup</a></li>
-            <a href="{% url 'account:logout' %}">Logout</a>
+            <li><a href="">Login</a></li>
+            <li><a href="">Signup</a></li>            
+            <li><a href="">Logout</a></li>
+            
 
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
