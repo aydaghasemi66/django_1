@@ -62,8 +62,10 @@
 
               </ul>
             </li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Signup</a></li>
+            <li><a href="{% url 'account:login' %}">Login</a></li>
+            <li><a href="{% url 'account:signup' %}">Signup</a></li>
+            <a href="{% url 'account:logout' %}">Logout</a>
+
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->

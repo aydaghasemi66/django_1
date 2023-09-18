@@ -37,10 +37,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sites',
     "root",
     "courses",
     
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
 ]
+SITE_ID=1
+LOGIN_REDIRECT_URL = '/'
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -68,6 +77,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"

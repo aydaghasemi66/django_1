@@ -85,16 +85,25 @@ def contact(request):
             return redirect('root:contact')   
         else :
             messages.add_message(request,messages.ERROR,'Invalid data')
-            return redirect('root:contact')
-        
-        
+            return redirect('root:contact')   
     
 
 
-
 def trainer(request):
-    category = Category.objects.all()
-    context = {
-        'category':category,
-    }
-    return render(request,"root/trainers.html",context=context)
+    if request.method =='GET':
+        category = Category.objects.all()
+        trainer = Trainer.objects.filter(status=True)
+        context = {
+            'category':category,
+            'trainer':trainer,
+        }
+        return render(request,"root/trainers.html",context=context)
+    elif request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            form.save()  
+            messages.add_message(request,messages.SUCCESS,'your email submited')
+            return redirect('root:trainer')   
+        else :
+            messages.add_message(request,messages.ERROR,'Invalid email address')
+            return redirect('root:trainer')
