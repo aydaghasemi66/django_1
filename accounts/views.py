@@ -5,33 +5,27 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-class CustomSignupView(SignupView):
-    template_name = 'account/signup.html'
+def account_signup(request):
+    if request.method == 'POST':
+        messages.success(request, "you signed up sucsessfully")
+        return redirect('home') 
 
-    def form_valid(self, form):
-        messages.success(self.request, "You've successfully signed up!")
-        return redirect('home')
+    return render(request, 'account/signup.html') 
 
 
+def account_login(request):
+    if request.method == 'POST':
 
-class CustomLogoutView(LogoutView):
-    template_name = 'account/logout.html'
+        messages.success(request, "you logged in sucsessfully")
+        return redirect('home') 
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        messages.success(request, "You've successfully logged out!")
-        return response
+    return render(request, 'account/login.html')  
 
-class CustomLoginView(LoginView):
-    template_name = 'account/login.html'  # Specify your custom template name here
-
-    def form_valid(self, form):
-        # Add custom logic here when the form is valid
-        # For example, you can send a custom message to the user
-        messages.success(self.request, "You've successfully logged in!")
-
-        # You can also add custom actions such as redirecting the user
-        return redirect('home')
+#
+def accouont_logout(request):
+   
+    messages.success(request, "you logged out sucsessfully")
+    return LogoutView.as_view()(request) 
 
 
 @login_required
