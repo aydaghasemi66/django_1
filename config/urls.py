@@ -18,14 +18,15 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from allauth.account.views import LoginView, SignupView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("root.urls")),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include(('accounts.urls', 'accounts'))),
     path("courses/",include("courses.urls")),
-
+    
+   
 ]
 
 
