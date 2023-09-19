@@ -3,7 +3,7 @@ from allauth.account.views import LoginView, SignupView ,LogoutView
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from allauth.account.views import PasswordResetView, PasswordResetDoneView
 
 def account_signup(request):
     if request.method == 'POST':
@@ -32,3 +32,25 @@ def accouont_logout(request):
 def change_email(request):
 
     return render(request, 'account/change_email.html')
+
+
+
+
+
+def custom_password_reset(request):
+    if request.method == 'POST':
+
+        messages.success(request, "Password reset email sent successfully!")
+
+        return redirect('password_reset_done')
+
+    return render(request, 'account/password_reset_form.html')
+
+
+def custom_password_reset_done(request):
+    return render(request, 'account/password_reset_done.html')
+
+
+
+
+
