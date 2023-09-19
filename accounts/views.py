@@ -9,10 +9,10 @@ class CustomSignupView(SignupView):
 
 
 class CustomChangePasswordView(PasswordChangeView):
-    template_name = "account/change_password_custom.html"  # Customize the template as needed
-    form_class = CustomChangePasswordForm  # Use the custom change password form you created
+    template_name = "account/change_password_custom.html" 
+    form_class = CustomChangePasswordForm  
 
 
 class CustomLoginView(LoginView):
-    template_name = "account/login_custom.html"  # Customize the template as needed
-    form_class = CustomLoginForm  # Use the custom login form you created
+    template_name = "account/login_custom.html" 
+    form_class = CustomLoginForm  

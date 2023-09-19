@@ -22,7 +22,7 @@ class CustomSignupForm(SignupForm):
 class CustomChangePasswordForm(ChangePasswordForm):
     new_password_confirm = forms.CharField(
         label="Confirm New Password",
-        strip=False,  # Remove the strip=False if not needed
+        strip=False,  
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
 )
 
@@ -32,7 +32,7 @@ class CustomChangePasswordForm(ChangePasswordForm):
         new_password = cleaned_data.get("new_password")
         new_password_confirm = forms.CharField(
             label="Confirm New Password",
-            strip=False,  # Remove the strip=False if not needed
+            strip=False, 
             widget=forms.PasswordInput(attrs={'class': 'form-control'}),
 )
 
