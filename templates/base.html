@@ -65,19 +65,14 @@
               </ul>
             </li>
             
-            {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}</p>
-            <a href="{% url 'accounts:account_logout' %}">Logout</a>
-
+            {% if request.user.is_authenticated %}
+            <li>ٌWelcome {{request.user.username}}</li>
+            <li><img src={{request.user.image.url}}></li>
+            <li><a href={% url 'accounts:account_logout' %}>Logout</a></li>
             {% else %}
-            <a href="{% url 'accounts:account_signup' %}">Signup</a>
-            <a href="{% url 'accounts:account_login' %}">Login</a>
-
-            
-
-
+            <li><a href={% url 'accounts:account_login' %}>Login</a></li>
+            <li><a href={% url 'accounts:account_signup' %}>signup</a></li>
             {% endif %}
-            
                 
             
           </ul>

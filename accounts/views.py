@@ -1,56 +1,59 @@
-
-from allauth.account.views import LoginView, SignupView ,LogoutView
-from django.shortcuts import render,redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.shortcuts import render, redirect
+from allauth.account.forms import SignupForm, LoginForm
 from allauth.account.views import PasswordResetView, PasswordResetDoneView
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 
 def account_signup(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+
     if request.method == 'POST':
-        messages.success(request, "you signed up sucsessfully")
-        return redirect('home') 
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save(request)
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect('/')
+        else:
+            messages.error(request, 'Invalid')
+    else:
+        form = SignupForm()
 
-    return render(request, 'account/signup.html') 
-
+    return render(request, 'account/signup.html', {'form': form})
 
 def account_login(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    
     if request.method == 'POST':
+        form = LoginForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('login')  # Use 'login' field for username
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+    else:
+        form = LoginForm()
 
-        messages.success(request, "you logged in sucsessfully")
-        return redirect('home') 
+    return render(request, 'account/login.html', {'form': form})
 
-    return render(request, 'account/login.html')  
+def account_logout(request):
+    logout(request)
+    return redirect('/')
 
-#
-def accouont_logout(request):
-   
-    messages.success(request, "you logged out sucsessfully")
-    return LogoutView.as_view()(request) 
-
-
-@login_required
 def change_email(request):
-
     return render(request, 'account/change_email.html')
 
-
-
-
-
-def custom_password_reset(request):
+def password_reset(request):
     if request.method == 'POST':
-
-        messages.success(request, "Password reset email sent successfully!")
-
-        return redirect('password_reset_done')
-
+        messages.success(request, "Password reset email sent successfully.")
+        return PasswordResetView.as_view()(request)
     return render(request, 'account/password_reset_form.html')
 
-
-def custom_password_reset_done(request):
+def password_reset_done(request):
     return render(request, 'account/password_reset_done.html')
 
-
-
-
-
+def change_password(request):
+    return render(request, 'account/password_change.html')
