@@ -1,15 +1,17 @@
-from django.urls import path
-from allauth.account.views import LogoutView,SignupView
-from .views import*
-app_name='accounts'
+from django.urls import include, path
+from .views import *
+
 urlpatterns = [
-    path('logout/', LogoutView.as_view(), name='account_logout'),
-    path('signup/',account_signup, name='account_signup'),
-    path('login/',account_login , name='account_login'),
-    path('change_email/', change_email, name='account_email'),
-    path('password_reset/', password_reset, name='password_reset'),
-    path('password_reset/done/',password_reset_done, name='password_reset_done'),
-    path('change-password/',change_password, name='change_password'),
-  
-  
+
+    path("signup/", CustomSignupView.as_view(), name='account_signup'),
+    path('login/', CustomLoginView.as_view(), name='account_login'),
+    path('change-password/', CustomChangePasswordView.as_view(), name='account_change_password'),
 ]
+
+
+
+
+
+
+    
+
